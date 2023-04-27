@@ -303,6 +303,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     //Slider
     const slides = document.querySelectorAll('.offer__slide')
+    const slider = document.querySelector('.offer__slider')
     const prev = document.querySelector('.offer__slider-prev')
     const next = document.querySelector('.offer__slider-next')
     const total = document.querySelector('#total')
@@ -330,6 +331,26 @@ window.addEventListener('DOMContentLoaded', function() {
         slide.style.width = width
     })
 
+    slider.style.position = 'relative'
+
+    const indicators = document.createElement('ol')
+    const dots = []
+    indicators.classList.add('carousel-indicators')
+
+    slider.append(indicators);
+
+    for(let i = 0; i<slides.length; i++){
+        const dot = document.createElement('li')
+        dot.classList.add('dot')
+        dot.setAttribute('data-slide-to', i+1)
+        
+        if(i == 0){
+            dot.style.opacity = 1
+        }
+        indicators.append(dot)
+        dots.push(dot)
+    }
+
     next.addEventListener('click', () => {
         if(offset == +width.slice(0, width.length-2) * (slides.length - 1)){ //'500px'
             offset = 0
@@ -349,6 +370,9 @@ window.addEventListener('DOMContentLoaded', function() {
         } else {
             current.textContent = slideIndex
         }
+
+        dots.forEach(dot => dot.style.opacity = 0.5)
+        dots[slideIndex-1].style.opacity = 1
     })
     
     prev.addEventListener('click', () => {
@@ -370,6 +394,26 @@ window.addEventListener('DOMContentLoaded', function() {
         } else {
             current.textContent = slideIndex
         }
+
+        dots.forEach(dot => dot.style.opacity = 0.5)
+        dots[slideIndex-1].style.opacity = 1
+    })
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            const slideTo = e.target.getAttribute('data-slide-to')
+            slideIndex = slideTo
+            offset = +width.slice(0, width.length-2) * (slideTo - 1)
+            slidesField.style.transform = `translateX(-${offset}px)`
+            dots.forEach(dot => dot.style.opacity = 0.5)
+            dots[slideIndex-1].style.opacity = 1
+
+            if(slides.length < 10){
+                current.textContent = `0${slideIndex}`
+            } else {
+                current.textContent = slideIndex
+            }
+        })
     })
 
 });
