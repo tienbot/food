@@ -50,7 +50,7 @@ function cards(){
     //         })
     //     })
 
-    getResource('http://localhost:3000/menu') // getResource и отрисовка карточек
+    getResource('http://localhost:4000/menu') // getResource и отрисовка карточек
     .then(data => createCard(data))
     function createCard(data){
         data.forEach(({img, altimg, title, descr, price}) => {

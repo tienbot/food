@@ -1726,7 +1726,7 @@ function cards() {
   //         })
   //     })
 
-  Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["getResource"])('http://localhost:3000/menu') // getResource и отрисовка карточек
+  Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["getResource"])('http://localhost:4000/menu') // getResource и отрисовка карточек
   .then(data => createCard(data));
   function createCard(data) {
     data.forEach(_ref => {
